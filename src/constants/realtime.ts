@@ -1,6 +1,9 @@
+import { PUBLIC_DEMO } from "./public-demo";
+
 const DEPLOYED_WS_ORIGIN = "wss://j15a405.p.ssafy.io";
 
 export function wsOrigin(): string {
+  if (PUBLIC_DEMO) return "";
   return process.env.NEXT_PUBLIC_WS_ORIGIN || DEPLOYED_WS_ORIGIN;
 }
 

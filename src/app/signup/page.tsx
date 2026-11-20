@@ -1,11 +1,15 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import AuthCard from "@/components/auth/auth-card";
 import { GuestGate } from "@/components/auth/auth-guard";
 import GoogleLoginButton from "@/components/auth/google-login-button";
 import SignupForm from "@/components/auth/signup-form";
 import { ROUTES } from "@/constants";
+import { PUBLIC_DEMO } from "@/constants/public-demo";
 
 export default function SignupPage() {
+  if (PUBLIC_DEMO) redirect(ROUTES.home);
+
   return (
     <GuestGate>
       <AuthCard title="ODY 가입하기" sub="가입하고 나면 닉네임을 정하고, 첫 좌표를 찍으러 갑니다.">

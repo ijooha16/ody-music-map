@@ -4,9 +4,11 @@ import {
   BackendError,
   isBackendEnabled,
   toMusic,
+  emailFromToken,
   toPcArray,
   type BackendMusicDetailResponse,
 } from "@/lib/backend";
+import { isMockLiked } from "@/mocks/backend";
 import { mockMusicDetail } from "@/mocks/music";
 import type { MusicDetail } from "@/types";
 
@@ -22,12 +24,12 @@ function toMusicDetail(res: BackendMusicDetailResponse): MusicDetail {
   };
 }
 
-export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
+export async function GET(req: Request, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const musicId = Number(id);
   if (!musicId) return fail("VALIDATION_ERROR", "곡 ID 가 올바르지 않습니다.", 400);
 
-  if (!isBackendEnabled()) return ok(mockMusicDetail(musicId));
+  if (!isBackendEnabled()) return ok({ ...mockMusicDetail(musicId), liked: isMockLiked(emailFromToken(req), musicId) });
 
   const upstream = `/api/music/detail?id=${musicId}`;
   try {

@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import ProfileEditDialog from "@/components/auth/profile-edit-dialog";
 import { MoreIcon } from "@/components/common/icons";
 import { ROUTES } from "@/constants";
+import { PUBLIC_DEMO } from "@/constants/public-demo";
 import { useLogoutMutation } from "@/hooks/mutations/use-logout-mutation";
 
 export default function FeedMenu() {
@@ -53,16 +54,18 @@ export default function FeedMenu() {
           <button type="button" role="menuitem" className={item} onClick={() => (setOpen(false), setEditing(true))}>
             내 정보 수정
           </button>
-          <button
-            type="button"
-            role="menuitem"
-            disabled={logout.isPending}
-            className={`${item} text-bad hover:text-bad disabled:opacity-50`}
+          {!PUBLIC_DEMO && (
+            <button
+              type="button"
+              role="menuitem"
+              disabled={logout.isPending}
+              className={`${item} text-bad hover:text-bad disabled:opacity-50`}
 
-            onClick={() => logout.mutate(undefined, { onSettled: () => router.replace(ROUTES.login) })}
-          >
-            {logout.isPending ? "로그아웃 중…" : "로그아웃"}
-          </button>
+              onClick={() => logout.mutate(undefined, { onSettled: () => router.replace(ROUTES.login) })}
+            >
+              {logout.isPending ? "로그아웃 중…" : "로그아웃"}
+            </button>
+          )}
         </div>
       )}
       {editing && <ProfileEditDialog onClose={() => setEditing(false)} />}

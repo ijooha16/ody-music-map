@@ -3,6 +3,7 @@ import { BOT_FOLLOWER_BONUS, NO_GENRE_ID } from "@/constants";
 import { seedOf } from "@/lib/avatar-seed";
 import { PC_DIMS, type MapPoint } from "@/types";
 import type { Music, PlaylistSummary, User, UserProfile } from "@/types";
+import { mockBackend } from "@/mocks/backend";
 import { failLive, LIVE_HEADERS } from "./api-response";
 
 const BACKEND_ORIGIN = process.env.BACKEND_ORIGIN ?? "https://j15a405.p.ssafy.io";
@@ -45,14 +46,13 @@ export function authHeader(caller: string | null | undefined, service: string | 
 }
 
 async function backendFetch<T>(path: string, init?: RequestInit, opts?: { allowNullData?: boolean }): Promise<T> {
-  const res = await fetch(`${BACKEND_ORIGIN}${path}`, {
-    ...init,
-    headers: {
-      ...authHeader(await callerToken(), BACKEND_ACCESS_TOKEN),
-      ...init?.headers,
-    },
-    cache: "no-store",
-  });
+  const headers = {
+    ...authHeader(await callerToken(), BACKEND_ACCESS_TOKEN),
+    ...init?.headers,
+  };
+  const res = isBackendEnabled()
+    ? await fetch(`${BACKEND_ORIGIN}${path}`, { ...init, headers, cache: "no-store" })
+    : await mockBackend(path, { ...init, headers });
 
   const text = await res.text();
   let body: Envelope<T> | null = null;
@@ -134,7 +134,7 @@ const REFRESH_PATH = { from: "Path=/api/auth", to: "Path=/" } as const;
 export async function backendProxy(req: Request, upstream: string, method: "POST" | "PATCH" = "POST") {
   const cookie = req.headers.get("cookie");
   const body = await req.text();
-  const res = await fetch(`${BACKEND_ORIGIN}${upstream}`, {
+  const init: RequestInit = {
     method,
     headers: {
       "Content-Type": "application/json",
@@ -143,8 +143,8 @@ export async function backendProxy(req: Request, upstream: string, method: "POST
       ...(cookie ? { Cookie: cookie } : {}),
     },
     body: body || undefined,
-    cache: "no-store",
-  });
+  };
+  const res = isBackendEnabled() ? await fetch(`${BACKEND_ORIGIN}${upstream}`, { ...init, cache: "no-store" }) : await mockBackend(upstream, init);
 
   const text = await res.text();
 

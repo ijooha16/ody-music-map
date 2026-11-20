@@ -1,11 +1,15 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import AuthCard from "@/components/auth/auth-card";
 import { GuestGate } from "@/components/auth/auth-guard";
 import EmailLoginForm from "@/components/auth/email-login-form";
 import GoogleLoginButton from "@/components/auth/google-login-button";
 import { ROUTES } from "@/constants";
+import { PUBLIC_DEMO } from "@/constants/public-demo";
 
 export default function LoginPage() {
+  if (PUBLIC_DEMO) redirect(ROUTES.home);
+
   return (
     <GuestGate>
 
