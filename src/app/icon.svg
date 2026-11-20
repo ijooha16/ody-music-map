@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <path id="body" d="M 0 -50 C 26 -50 42 -20 42 6 C 42 32 30 54 18 60 L -18 60 C -30 54 -42 32 -42 6 C -42 -20 -26 -50 0 -50 Z"/>
+    <clipPath id="bodyClip"><use href="#body"/></clipPath>
+  </defs>
+  <g transform="translate(32 32) rotate(40) scale(0.36) translate(0 -10)">
+    <path d="M -30 22 C -50 34 -58 50 -56 62 C -50 64 -36 60 -26 56 Z" fill="#4fe3ce"/>
+    <path d="M 30 22 C 50 34 58 50 56 62 C 50 64 36 60 26 56 Z" fill="#4fe3ce"/>
+    <use href="#body" fill="#e9f1ff"/>
+    <rect x="0" y="-56" width="60" height="130" fill="#cfd9f7" clip-path="url(#bodyClip)"/>
+    <path d="M -18 60 L 18 60 C 18 66 10 70 0 70 C -10 70 -18 66 -18 60 Z" fill="#a67cff"/>
+    <circle cx="0" cy="0" r="33.6" fill="#3a4761"/>
+    <circle cx="0" cy="0" r="28.8" fill="#a67cff"/>
+    <circle cx="-9" cy="-9" r="6.4" fill="#ffffff" fill-opacity="0.35"/>
+  </g>
+</svg>

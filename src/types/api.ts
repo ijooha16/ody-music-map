@@ -1,0 +1,92 @@
+export type ImplementedErrorCode =
+  | "UNAUTHENTICATED"
+  | "INVALID_TOKEN"
+  | "REFRESH_TOKEN_NOT_FOUND"
+  | "REFRESH_TOKEN_MISMATCH"
+  | "INVALID_EXCHANGE_CODE"
+  | "INVALID_INPUT"
+  | "INTERNAL_SERVER_ERROR"
+
+  | "EMAIL_ALREADY_EXISTS"
+  | "NICKNAME_ALREADY_EXISTS"
+  | "INVALID_CREDENTIALS"
+  | "PASSWORD_MISMATCH"
+  | "INVALID_PASSWORD_FORMAT"
+  | "INVALID_NICKNAME_LENGTH"
+
+  | "PRESENCE_ERROR"
+
+  | "RIDE_CAPTAIN_INACTIVE"
+
+  | "RIDE_SELF"
+
+  | "RIDE_ALREADY_RIDING"
+
+  | "RIDE_CHAIN_FORBIDDEN"
+
+  | "RIDE_FULL"
+
+  | "RIDE_NOT_RIDING"
+
+  | "RIDE_NOT_CAPTAIN"
+
+  | "RIDE_STALE"
+
+  | "REACTION_SELF"
+
+  | "REACTION_NOT_NEARBY"
+
+  | "REACTION_COOLDOWN"
+
+  | "TASTE_INSUFFICIENT_SAMPLE"
+
+  | "TASTE_DAILY_LIMIT"
+
+  | "TASTE_ANALYSIS_IN_PROGRESS"
+
+  | "TASTE_REFERENCE_UNAVAILABLE"
+
+  | "ARTWORK_NOT_FOUND"
+
+  | "ARTWORK_ROUND_CLOSED"
+
+  | "ARTWORK_NOT_FAILED"
+
+  | "ARTWORK_RETRY_EXHAUSTED"
+
+  | "ARTWORK_DRAWING_DEGENERATE"
+
+  | "ARTWORK_VOTE_LIMIT"
+
+  | "ARTWORK_VOTE_SELF";
+
+export type SpecErrorCode =
+  | "VALIDATION_ERROR"
+  | "INVALID_TOKEN"
+  | "TOKEN_EXPIRED"
+  | "REFRESH_TOKEN_INVALID"
+  | "OAUTH_FAILED"
+  | "FORBIDDEN"
+  | "USER_NOT_FOUND"
+  | "USER_PRIVATE"
+  | "MUSIC_NOT_FOUND"
+  | "TRACK_NOT_PLAYABLE"
+  | "PATH_NOT_FOUND"
+  | "PLAYLIST_NOT_FOUND"
+  | "PLAYLIST_NAME_DUPLICATED"
+  | "ALREADY_FOLLOWING"
+  | "SELF_FOLLOW_NOT_ALLOWED"
+  | "UNSUPPORTED_FILE_TYPE"
+  | "FILE_TOO_LARGE"
+  | "INTERNAL_ERROR";
+
+export type BffErrorCode = "NOT_IMPLEMENTED";
+
+export type ApiErrorCode = ImplementedErrorCode | SpecErrorCode | BffErrorCode;
+
+export interface ApiErrorBody {
+  code: ApiErrorCode;
+  message: string;
+}
+
+export type ApiResponse<T> = { success: true; data: T; error: null } | { success: false; data: null; error: ApiErrorBody };

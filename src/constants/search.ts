@@ -1,0 +1,7 @@
+export const SEARCH_PAGE_SIZE = 10;
+
+export const TITLE_SEARCH_MAX_UPSTREAM_PAGES = 5;
+
+export const SEARCH_LOAD_MORE_MARGIN_PX = 160;
+
+export const SEARCH_DEBOUNCE_MS = 350;

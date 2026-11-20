@@ -1,0 +1,15 @@
+export const LIVE_API_PATHS: readonly string[] = [
+  // "/api/auth/signup",
+  // "/api/auth/login",
+  // "/api/auth/login/google",
+  // "/api/auth/exchange",
+  // "/api/auth/reissue",
+  // "/api/auth/logout",
+  // "/api/auth/withdraw",
+  // "/api/users/nickname-available",
+  // "/api/user/tutorial-completed",
+  // "/api/user/nickname",
+  // "/api/user/image",
+  // "/oauth2/authorization/:provider",
+  // "/login/oauth2/code/:provider",
+];

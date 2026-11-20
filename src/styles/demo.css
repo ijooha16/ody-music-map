@@ -1,0 +1,13 @@
+html:root {
+  --color-void: #000;
+}
+html .stage-bg {
+  background: #000;
+}
+
+html [data-minimap] {
+  border-color: rgb(79 227 206 / 0.35);
+  box-shadow:
+    0 0 14px rgb(79 227 206 / 0.45),
+    0 0 32px rgb(79 227 206 / 0.2);
+}
