@@ -1,15 +1,9 @@
 import { failLive, fail, ok, okLive } from "@/lib/api-response";
 import { backendGet, BackendError, isBackendEnabled, type BackendMusicDetail } from "@/lib/backend";
-import { SEARCH_PAGE_SIZE, TITLE_SEARCH_MAX_UPSTREAM_PAGES } from "@/constants";
+import { SEARCH_PAGE_SIZE } from "@/constants";
 import { mockSearch } from "@/mocks/music";
 import type { MusicSearchPage } from "@/types";
-
-interface BackendSearchResponse {
-  content: BackendMusicDetail[];
-  page: number;
-  size: number;
-  hasNext: boolean;
-}
+import { searchTitleOnlyPage, type BackendSearchResponse } from "./title-search";
 
 export async function GET(req: Request) {
   const sp = new URL(req.url).searchParams;
@@ -51,29 +45,6 @@ export async function GET(req: Request) {
     const err = e as BackendError;
     return failLive("INTERNAL_ERROR", err.message, err.status || 502, upstream);
   }
-}
-
-export async function searchTitleOnlyPage(
-  music: string,
-  page: number,
-  readPage: (page: number) => Promise<BackendSearchResponse>,
-): Promise<MusicSearchPage> {
-  const prefix = music.toLowerCase();
-  const needed = (page + 1) * SEARCH_PAGE_SIZE + 1;
-  const matches: BackendMusicDetail[] = [];
-
-  for (let upstreamPage = 0; upstreamPage < TITLE_SEARCH_MAX_UPSTREAM_PAGES && matches.length < needed; upstreamPage += 1) {
-    const res = await readPage(upstreamPage);
-    matches.push(...res.content.filter((item) => item.title.toLowerCase().startsWith(prefix)));
-    if (!res.hasNext) break;
-  }
-
-  const from = page * SEARCH_PAGE_SIZE;
-  return {
-    items: matches.slice(from, from + SEARCH_PAGE_SIZE).map((item) => ({ id: item.id, title: item.title, artist: item.artist })),
-    page,
-    hasNext: matches.length > from + SEARCH_PAGE_SIZE,
-  };
 }
 
 function titleFallbackPath(music: string, page: number): string {

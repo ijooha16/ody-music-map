@@ -3,7 +3,7 @@
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
 
-const { videoIdLookup } = require("../src/app/bff/music/[id]/video-id/route.ts");
+const { videoIdLookup } = require("../src/app/bff/music/[id]/video-id/lookup.ts");
 
 test("줄이 아예 없으면 그 곡이 없는 것이다 — 삭제된 곡", () => {
   assert.equal(videoIdLookup(undefined), "notFound");

@@ -3,18 +3,10 @@ import { backendPost, BackendError, isBackendEnabled } from "@/lib/backend";
 import { songById } from "@/mocks/songs";
 import { mockVideoId } from "@/mocks/video";
 import type { VideoIdLookup } from "@/types";
+import { videoIdLookup } from "./lookup";
 
 interface BackendVideoIdBatch {
   items?: { musicId: number; videoId: string | null }[];
-}
-
-const NOT_FOUND = "none";
-
-export function videoIdLookup(item: { videoId: string | null } | undefined): VideoIdLookup {
-  if (item == null) return "notFound";
-  const raw = item.videoId;
-  if (raw === NOT_FOUND || raw === "") return "notFound";
-  return raw ? "found" : "unsearched";
 }
 
 export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {

@@ -5,7 +5,7 @@ const assert = require("node:assert/strict");
 const { canSearch, searchRequestPath, flattenSearch } = require("../src/hooks/queries/use-music-search-query.ts");
 const { QUERY_KEYS } = require("../src/constants/index.ts");
 const { TITLE_SEARCH_MAX_UPSTREAM_PAGES } = require("../src/constants/search.ts");
-const { searchTitleOnlyPage } = require("../src/app/bff/music/search/route.ts");
+const { searchTitleOnlyPage } = require("../src/app/bff/music/search/title-search.ts");
 const { atBottom } = require("../src/hooks/use-load-more-on-bottom.ts");
 const { SEARCH_LOAD_MORE_MARGIN_PX } = require("../src/constants/index.ts");
 
