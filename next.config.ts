@@ -12,7 +12,7 @@ function lanOrigins(): string[] {
 const BACKEND_ORIGIN = process.env.BACKEND_ORIGIN ?? "https://j15a405.p.ssafy.io";
 
 const nextConfig: NextConfig = {
-  output: "standalone",
+  output: process.env.VERCEL ? undefined : "standalone",
 
   allowedDevOrigins: lanOrigins(),
 
