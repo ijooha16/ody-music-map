@@ -1422,7 +1422,7 @@ export class MapEngine {
   }
 
   private startCam0(mask: Uint8Array<ArrayBufferLike>, centerId: number): MapCamera {
-    const s = this.fitBox(0, 1, mask).sCover;
+    const s = this.fitBox(0, 1, mask).sCover * DRILL.startZoom;
     const c = this.songs[this.index.get(centerId)!];
     const f = this.freeRect();
     return this.saneCam({ cx: c.pc[0] - (f.cx - this.W / 2) / s, cy: c.pc[1] + (f.cy - this.H / 2) / s, s });

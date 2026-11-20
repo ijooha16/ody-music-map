@@ -80,9 +80,9 @@ export const CONSTELLATION_MAX_SONGS = 30;
 export const DRILL = {
   gateMaxDensity: 1700,
 
-  gateMinZoom: { top: 6, deep: 3 },
+  gateMinZoom: { top: 10, deep: 4 },
 
-  zoomRange: { min: 0.8, max: 24 },
+  zoomRange: { min: 0.5, max: 24 },
 
   riseLandZoom: 3.2,
 
@@ -115,7 +115,8 @@ export const DRILL = {
   },
 
   fitQuantile: 0.97,
-  fitRadiusRatio: 0.44,
+  fitRadiusRatio: 0.75,
+  startZoom: 1.7,
 
   deepFit: {
     trim: 0.03,
