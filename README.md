@@ -8,6 +8,8 @@
 
 [![ODY 시연](docs/media/demo-poster.jpg)](docs/media/demo.mp4)
 
+**체험하기 → [ody-music-map.vercel.app](https://ody-music-map.vercel.app)** · 로그인 없이 바로 둘러볼 수 있습니다.
+
 ▶ [시연 영상](docs/media/demo.mp4) · [레이어 파고들기](docs/media/dive.mp4)
 
 ## 주요 기능
@@ -53,7 +55,7 @@ npm test        # 타입 체크 + 단위 테스트
 npm run build   # 프로덕션 빌드
 ```
 
-데모 모드에서는 지도·곡 상세·주변 탐색·재생이 모두 목 데이터로 동작합니다. 재생은 곡과 상관없는 공개 샘플 영상으로 플레이어 동작만 보여 줍니다.
+데모 모드에서는 로그인 없이 지도·곡 상세·주변 탐색·재생·친구·플레이리스트가 모두 목 데이터로 동작합니다. 재생은 곡과 상관없는 공개 샘플 영상으로 플레이어 동작만 보여 줍니다.
 
 ## 구조
 
