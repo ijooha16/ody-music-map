@@ -11,20 +11,33 @@ interface SongNearbyCardProps {
   title: string;
   artist: string | null;
 
+  albumMbid?: string | null;
+  albumCoverUrl?: string | null;
   rank: number;
 
   playing: boolean;
   onClick: () => void;
 }
 
-export default function SongNearbyCard({ musicId, title, artist, rank, playing, onClick }: SongNearbyCardProps) {
+export default function SongNearbyCard({ musicId, title, artist, albumMbid, albumCoverUrl, rank, playing, onClick }: SongNearbyCardProps) {
   const coverRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = coverRef.current;
     if (!el) return;
-    const albumMbid = getMapEngine()?.pointOf(musicId)?.albumMbid ?? null;
-    const point = { musicId, genreId: NO_GENRE_ID, pc: [], weight: 1, title: "", artist: null, youtubeUrl: null, albumMbid, playable: true };
+    const mapped = getMapEngine()?.pointOf(musicId);
+    const point = {
+      musicId,
+      genreId: mapped?.genreId ?? NO_GENRE_ID,
+      pc: [],
+      weight: 1,
+      title: "",
+      artist: null,
+      youtubeUrl: null,
+      albumMbid: albumMbid ?? mapped?.albumMbid,
+      albumCoverUrl: albumCoverUrl ?? mapped?.albumCoverUrl,
+      playable: true,
+    };
     let timer = 0;
     let tries = 0;
     const paint = () => {
@@ -33,14 +46,14 @@ export default function SongNearbyCard({ musicId, title, artist, rank, playing, 
 
     const poll = () => {
       timer = 0;
-      if (!albumMbid || tries++ > 30) return;
+      if ((!point.albumCoverUrl && !point.albumMbid) || tries++ > 30) return;
       paint();
       timer = window.setTimeout(poll, 150);
     };
     paint();
     timer = window.setTimeout(poll, 150);
     return () => clearTimeout(timer);
-  }, [musicId]);
+  }, [musicId, albumMbid, albumCoverUrl]);
 
   return (
     <button

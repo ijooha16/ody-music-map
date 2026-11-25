@@ -1,7 +1,7 @@
 import { NEARBY_COUNT } from "@/constants";
 import type { JourneyRoute, Music, MusicDetail, MusicSearchResult, NearbyResponse } from "@/types";
 import { seeded } from "./seed";
-import { allSongs, embDist, GENRE_NAMES, MOODS, nearestSongs, songById } from "./songs";
+import { allSongs, demoAlbumNumber, embDist, GENRE_NAMES, MOODS, nearestSongs, songById } from "./songs";
 
 export { GENRE_NAMES, MOODS };
 
@@ -16,7 +16,8 @@ export function mockMusic(id: number): Music {
     releaseYear: 1968 + Math.floor(rand() * 57),
     bpm: Math.round((62 + rand() * 110) * 10) / 10,
     duration: 96 + Math.floor(rand() * 268),
-    album: `Album ${(id % 25) + 1}`,
+    album: `Album ${demoAlbumNumber(id)}`,
+    albumCoverUrl: s?.albumCoverUrl ?? null,
     youtubeUrl: s && !s.playable ? null : `https://www.youtube.com/watch?v=mock${id}`,
 
     location: s ? (s.pc as Music["location"]) : null,
@@ -31,7 +32,6 @@ export function mockMusicDetail(id: number): MusicDetail {
   const pc = s?.pc ?? [];
   return {
     ...base,
-    albumCoverUrl: null,
     liked: false,
     country: "KR",
     language: "ko",
@@ -39,7 +39,7 @@ export function mockMusicDetail(id: number): MusicDetail {
     lyricist: `Lyricist ${(id % 12) + 1}`,
     moods: [MOODS[id % MOODS.length], MOODS[(id + 2) % MOODS.length]],
     principalComponents: pc.map((v, i) => ({ axis: i, value: v })),
-    nearby: (s ? nearestSongs(s, NEARBY_COUNT) : []).map((p) => ({ id: p.musicId, title: p.title, artist: p.artist })),
+    nearby: (s ? nearestSongs(s, NEARBY_COUNT) : []).map((p) => ({ id: p.musicId, title: p.title, artist: p.artist, albumCoverUrl: p.albumCoverUrl })),
     relatedPlaylists: [
       { id: 1, playlistName: "새벽 드라이브", email: "luna@ody.app" },
       { id: 2, playlistName: "집중용", email: "nova@ody.app" },

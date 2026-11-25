@@ -170,6 +170,7 @@ interface BackendMusicSummary {
   youtubeUrl: string | null;
 
   albumMbid?: string | null;
+  albumCoverUrl?: string | null;
   location: BackendLocation | null;
 }
 
@@ -228,6 +229,7 @@ export interface BackendMapPoint {
   youtubeUrl?: string | null;
 
   albumMbid?: string | null;
+  albumCoverUrl?: string | null;
   playable: boolean;
 }
 
@@ -241,6 +243,7 @@ export function toResidentPoint(p: BackendMapPoint): MapPoint {
     artist: p.artist ?? null,
     youtubeUrl: p.youtubeUrl ?? null,
     albumMbid: p.albumMbid ?? null,
+    albumCoverUrl: p.albumCoverUrl ?? null,
     playable: p.playable,
   };
 }
@@ -250,6 +253,7 @@ export function toMusic(res: BackendMusicDetail): Music {
     id: res.id,
     mbid: res.mbid,
     albumMbid: res.albumMbid ?? null,
+    albumCoverUrl: res.albumCoverUrl ?? null,
     title: res.title,
     artist: res.artist,
     releaseYear: res.releaseYear ?? null,
@@ -273,6 +277,8 @@ export function toMapPoint(music: BackendMusicSummary): MapPoint {
     title: music.title,
     artist: music.artist,
 
+    albumMbid: music.albumMbid ?? null,
+    albumCoverUrl: music.albumCoverUrl ?? null,
     youtubeUrl: music.youtubeUrl ?? null,
     playable: music.youtubeUrl != null,
   };

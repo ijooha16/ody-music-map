@@ -217,14 +217,14 @@ export default function MapView({ occlusion }: MapViewProps) {
   }, [engine, boxes, songs]);
 
   const repPoints = useMemo(
-    () => (songs ? [...songs].sort(byCoverPriority((p) => p.albumMbid != null, (p) => p.weight)).slice(0, REPRESENTATIVE_COUNT) : null),
+    () => (songs ? [...songs].sort(byCoverPriority((p) => Boolean(p.albumCoverUrl || p.albumMbid), (p) => p.weight)).slice(0, REPRESENTATIVE_COUNT) : null),
     [songs],
   );
   const representatives = useMemo(() => repPoints?.map((p) => p.musicId) ?? null, [repPoints]);
 
   useEffect(() => {
     if (!repPoints) return;
-    for (const p of repPoints.slice(0, COVER_COUNT.near)) albumCover(p.musicId, p.albumMbid, COVER_PX);
+    for (const p of repPoints.slice(0, COVER_COUNT.near)) albumCover(p, COVER_PX);
   }, [repPoints]);
   useEffect(() => {
     if (representatives) engine.setRepresentatives(boxes.length, representatives);

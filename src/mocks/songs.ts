@@ -13,6 +13,9 @@ const AA = ["Low", "Velour", "Kite", "Palm", "Nocturne", "Sable", "Hyper", "Slow
 const AB = ["Division", "Sisters", "Machine", "Society", "Bureau", "Choir", "Club", "Collective", "Ensemble", "Orchestra", "Youth", "Motel", "Trio", "Signal", "Union", "Company"];
 const AK = ["새벽차", "도시선", "청음", "미러볼", "유리도시", "밤편지", "전기양", "목요일", "서브웨이", "화요일의 방", "백야", "소음정원"];
 
+export const demoAlbumNumber = (musicId: number) => (musicId % 25) + 1;
+export const demoAlbumCover = (musicId: number) => `/demo-albums/${demoAlbumNumber(musicId)}.webp`;
+
 let cache: MapPoint[] | null = null;
 
 export function allSongs(): MapPoint[] {
@@ -96,6 +99,7 @@ export function allSongs(): MapPoint[] {
     const playable = rnd() > 0.115;
     return {
       musicId: i + 1,
+      albumCoverUrl: demoAlbumCover(i + 1),
       pc,
       genreId: s.gi,
       weight: Math.round(Math.pow(10, 2.6 + s.mag * 4.2)),
@@ -112,6 +116,7 @@ export function allSongs(): MapPoint[] {
 function ghostOnlySong(): MapPoint {
   return {
     musicId: SONG_COUNT,
+    albumCoverUrl: demoAlbumCover(SONG_COUNT),
     pc: [2.6, 1.7, ...Array.from({ length: PC_DIMS - 2 }, (_, i) => (i % 2 ? -1.4 : 1.9))],
     genreId: 2,
     weight: 48_000,

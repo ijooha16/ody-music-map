@@ -54,7 +54,7 @@ export function useDemoPins(engine: MapEngine) {
         found.map((p) => p.musicId),
         new Map(points.flatMap((p, k) => (p && DEMO_SONGS[k].minLayer ? [[p.musicId, DEMO_SONGS[k].minLayer]] : []))),
       );
-      for (const p of found) albumCover(p.musicId, p.albumMbid, COVER_PX);
+      for (const p of found) albumCover(p, COVER_PX);
     });
     return () => {
       alive = false;

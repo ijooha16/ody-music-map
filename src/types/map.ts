@@ -16,6 +16,7 @@ export interface MapPoint {
   youtubeUrl: string | null;
 
   albumMbid?: string | null;
+  albumCoverUrl?: string | null;
 
   playable: boolean;
 

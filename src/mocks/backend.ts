@@ -510,6 +510,7 @@ function backendMusic(id: number): BackendMusicDetail {
     album: m.album,
     youtubeUrl: m.youtubeUrl,
     albumMbid: null,
+    albumCoverUrl: m.albumCoverUrl,
     location: m.location ? Object.fromEntries(m.location.map((v, i) => [`pc${i + 1}`, v])) : null,
     bpm: m.bpm,
     duration: m.duration,

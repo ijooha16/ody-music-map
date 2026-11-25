@@ -387,7 +387,7 @@ function drawCovers(g: CanvasRenderingContext2D, e: MapEngine) {
     const fill = spreadOrder(
       [...candidates]
         .filter((i) => !picked.includes(i) && !demo.has(i) && usable(i, true))
-        .sort(byCoverPriority((i) => e.songs[i].albumMbid != null, (i) => e.songs[i].weight)),
+        .sort(byCoverPriority((i) => Boolean(e.songs[i].albumCoverUrl || e.songs[i].albumMbid), (i) => e.songs[i].weight)),
       at,
       f,
       n,

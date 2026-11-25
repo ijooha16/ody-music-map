@@ -12,6 +12,7 @@ export function musicToMapPoint(m: Music): MapPoint | null {
     artist: m.artist,
 
     albumMbid: m.albumMbid ?? null,
+    albumCoverUrl: m.albumCoverUrl ?? null,
     youtubeUrl: m.youtubeUrl,
     playable: m.youtubeUrl != null,
   };

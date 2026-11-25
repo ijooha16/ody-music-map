@@ -1,7 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { coverFor } from "@/components/map/render/sprites";
+import { useRef, useState } from "react";
+import { useAlbumCover } from "@/hooks/use-album-cover";
 import Box from "@/components/common/box";
 import Button from "@/components/common/button";
 import { NO_GENRE_ID } from "@/constants/map";
@@ -43,21 +43,9 @@ function SurveySongRow({
   const sounding = usePlayerStore((s) => s.currentMusicId) === song.musicId;
   const unplayable = useSurveyStore((s) => s.unplayable).has(song.musicId);
 
-  const cover = useMemo(
-    () =>
-      coverFor({
-        musicId: song.musicId,
-        genreId: song.genreId ?? NO_GENRE_ID,
-        pc: [],
-        weight: 1,
-        title: "",
-        artist: null,
-        youtubeUrl: null,
-        playable: true,
-      }).toDataURL(),
-    [song.musicId, song.genreId],
-  );
+  const coverRef = useRef<HTMLSpanElement>(null);
   const size = highlight ? 46 : 38;
+  useAlbumCover(coverRef, song.musicId, size, undefined, song.genreId ?? NO_GENRE_ID);
 
   return (
     <div className="flex flex-col gap-1.5">
@@ -65,9 +53,10 @@ function SurveySongRow({
       <span className={`text-[14.5px] leading-none font-semibold ${highlight ? "text-violet" : "text-ink-3"}`}>{label}</span>
       <div className="flex items-center gap-3">
         <span
+          ref={coverRef}
           aria-hidden
           className="shrink-0 rounded-box-xs border border-line bg-cover"
-          style={{ width: size, height: size, backgroundImage: `url(${cover})` }}
+          style={{ width: size, height: size }}
         />
         <div className="min-w-0 flex-1">
           <p

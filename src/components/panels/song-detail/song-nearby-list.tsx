@@ -131,6 +131,8 @@ export default function SongNearbyList({ items, centerMusicId }: SongNearbyListP
               musicId={m.id}
               title={m.title}
               artist={m.artist}
+              albumMbid={m.albumMbid}
+              albumCoverUrl={m.albumCoverUrl}
               rank={i + 1}
               playing={currentMusicId === m.id}
               onClick={() => handlePick(m.id)}

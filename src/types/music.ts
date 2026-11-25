@@ -24,6 +24,7 @@ export interface Music {
   mbid: string;
 
   albumMbid?: string | null;
+  albumCoverUrl?: string | null;
 
   title: string;
 

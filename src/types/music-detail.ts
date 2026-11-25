@@ -3,8 +3,6 @@ import type { Music } from "./music";
 import type { Playlist } from "./playlist";
 
 export interface MusicDetail extends Music {
-  albumCoverUrl?: string | null;
-
   country?: string | null;
 
   language?: string | null;
@@ -15,7 +13,7 @@ export interface MusicDetail extends Music {
 
   principalComponents: { axis: number; value: number }[];
 
-  nearby: Pick<Music, "id" | "title" | "artist">[];
+  nearby: Pick<Music, "id" | "title" | "artist" | "albumMbid" | "albumCoverUrl">[];
 
   relatedPlaylists: Pick<Playlist, "id" | "playlistName" | "email">[];
 

@@ -314,7 +314,7 @@ export const COVER_PX = 104;
 const coverCache = new BudgetCache<string, HTMLCanvasElement>(12 * 1024 * 1024, canvasBytes);
 
 export function coverFor(s: MapPoint, size: number = COVER_PX): HTMLCanvasElement {
-  const real = albumCover(s.musicId, s.albumMbid, size);
+  const real = albumCover(s, size);
   if (real) return real;
   const key = `${s.musicId}:${size}`;
   let c = coverCache.get(key);

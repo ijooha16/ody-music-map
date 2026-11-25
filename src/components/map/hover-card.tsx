@@ -37,7 +37,7 @@ export default function HoverCard({ engine, song, on, onDetail }: HoverCardProps
     };
     const poll = () => {
       timer = 0;
-      if (!song.albumMbid || tries++ > 30) return;
+      if ((!song.albumCoverUrl && !song.albumMbid) || tries++ > 30) return;
       paint();
       timer = window.setTimeout(poll, 150);
     };
